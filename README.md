@@ -7,6 +7,14 @@ No HTTP server, backend or server-side program. All you need is just a browser.
 
 <br />
 
+添加Thunder,FlashGet,QQdl下载链接的简单解析支持.
+
+全面汉化.
+
+对手机更加友好.
+
+<br />
+
 Usage
 -----
 1. Run aria2 with RPC enabled
