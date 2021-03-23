@@ -5,13 +5,17 @@ Yet Another Aria2 Web Frontend in pure HTML/CSS/Javascirpt.
 
 No HTTP server, backend or server-side program. All you need is just a browser.
 
-<br />
-
-添加Thunder,FlashGet,QQdl下载链接的简单解析支持.
+添加 Thunder, FlashGet, QQdl 下载链接的简单解析支持.
 
 全面汉化.
 
 对手机更加友好.
+
+优化部分UI设计.
+
+添加用于停止后端RPC服务的"退出"按钮.
+
+集成使用说明.
 
 <br />
 
