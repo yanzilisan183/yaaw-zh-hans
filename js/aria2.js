@@ -748,7 +748,7 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 					}
 				}
 			);
-			if(window.confirm("确定要关闭远程下载服务吗?")){
+			if(window.confirm("确定要退出远端 Aria2 RPC 守护进程吗?")){
 				ARIA2.request("shutdown", [],
 					function(result) {
 						if (!result.result) {
