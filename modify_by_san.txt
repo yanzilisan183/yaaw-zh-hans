@@ -8,16 +8,12 @@
 		<button id="ib-file-save" class="btn btn-primary" title="任务暂停时才可以修改">保存</button>
 
 
-/css/bootstrap.min.css
-	查找
-		.btn.disabled,.btn[disabled]{
-	vim查找
-		.btn.disabled,.btn\[disabled\]{
-	* 注意查找时完全匹配,不完整的关键字可能会有多处匹配.
-	将
-		cursor:default;background-color:#e6e6e6;
-	替换为
-		cursor:not-allowed;background-color:#e6e6e6!important;
+/css/main.css
+	结尾追加
+		.btn.disabled, .btn[disabled] {
+			cursor:not-allowed!important;
+			background-color:#e6e6e6!important;
+		}
 
 
 /js/aria2.js
@@ -108,15 +104,17 @@
 /index.html
 	查找
 		<div class="progress">
+	或
+		<div class="progress {{progressStatus}}">
 	替换为
-		<div class="progress" title="GID:{{gid}}">
+		<div class="progress {{progressStatus}}" title="GID:{{gid}}">
 	共两处,分别为下载中的任务的其他任务
 
 
 
 
 
-剩余时间为INF时,显示恢背影
+剩余时间为INF时,显示灰背影
 ====================================================================================
 /js/yaaw.js
 	查找
@@ -262,7 +260,7 @@
 
 
 
-/css/main.cll
+/css/main.css
 	查找
 		.ib-file-title {
 		    margin-left: 5px;

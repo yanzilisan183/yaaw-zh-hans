@@ -583,4 +583,57 @@ td, th {
     padding: 0 1em 0 0;
     text-align: left;
 }
+
+
+
+/* dark mode patch by san */
+@media (prefers-color-scheme: dark) {
+    /* add */
+    .ib-file-folder {
+        background-image: url('../img/glyphicons-halflings-white.png')!important;
+    }
+    /* Convert content from above */
+    .select-box {
+        border: 1px solid #393939;
+        border: 1px solid rgba(100, 100, 100, .57);
+    }
+    .task.selected {
+        background-color: #060606;
+    }
+    .tasks-table > li {
+        border-top: 1px solid #222;
+        border-bottom: 1px solid #222;
+    }
+    .tasks-table > li:hover {
+        background-color: #0a0a0a;
+    }
+    .task:hover .select-box {
+        border-color: #999;
+    }
+    .info-open {
+        background-color: #060606;
+    }
+    #ib-files li {
+        border-bottom: 1px solid #000;
+    }
+    #ib-files .ib-file-title:hover {
+        border-bottom: 1px solid #999;
+    }
+    #add-task-modal .modal-body.hover {
+        padding: 13px;
+        border: 2px solid #999;
+    }
+    #uri-more {
+        color: #222;
+        background-color: #0a0a0a;
+    }
+    #uri-more:hover {
+        background-color: #222;
+        color: #666;
+    }
+
+}
+
+
+
 /* vim: set et sw=4 ts=4 sts=4 fdm=marker ff=unix fenc=utf8: */
