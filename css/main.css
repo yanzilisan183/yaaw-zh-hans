@@ -524,6 +524,14 @@
 #add-task-option .controls {
     margin-left: 85px;
 }
+@media (max-width: 480px) {
+    #add-task-option .control-label {
+        float: left!important;
+    }
+    #add-task-option .input-xlarge {
+        width: 185px;
+    }
+}
 
 /* aria2 global setting */
 #copyright {
