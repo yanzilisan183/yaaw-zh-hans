@@ -13,6 +13,8 @@ No HTTP server, backend or server-side program. All you need is just a browser.
 
 优化部分UI设计.
 
+支持“暗色模式”.
+
 添加用于停止后端RPC服务的"退出"按钮.
 
 集成使用说明.
