@@ -529,6 +529,7 @@
 #copyright {
     margin-top: 10px;
     float: left;
+    white-space: nowrap;
 }
 #setting-form .rpc-path-group .controls {
     padding-right: 70px;
@@ -575,15 +576,38 @@
 #aria2-gs-form .half .control-label {
     width: 110px;
 }
+
 #aria2-gs-form .half .controls {
     margin-left: 130px;
     padding-right: 0;
+}
+@media (max-width: 480px) {
+    #aria2-gs-form .half {
+        float: left;
+        width: 300px;
+        margin-left: 10px;
+    }
+    #aria2-gs-form .half label {
+        float: left!important;
+    }
+    #aria2-gs-form .half .controls {
+        float: left;
+        margin-left: 30px;
+        padding-right: 0;
+    }
 }
 td, th {
     padding: 0 1em 0 0;
     text-align: left;
 }
-
+.time_inf {
+    background-color: #999;
+    color: #fff;
+    padding-top: 3px;
+    padding-bottom: 0px;
+    padding-left: 5px;
+    padding-right: 4px;
+}
 
 
 /* dark mode patch by san */
@@ -630,6 +654,10 @@ td, th {
     #uri-more:hover {
         background-color: #222;
         color: #666;
+    }
+    .time_inf {
+        background-color: #666;
+        color: #000;
     }
 
 }

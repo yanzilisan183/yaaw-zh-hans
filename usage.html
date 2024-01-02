@@ -15,15 +15,9 @@
 			color: #000000;
 			margin-bottom: 2em;
 		}
-		h1 {
-			text-align: center;
-		}
-		a {
-			text-decoration: none;
-		}
-		b {
-			font-weight: 700;
-		}
+		h1 { text-align: center; }
+		a { text-decoration: none; color: #0000ff; }
+		b { font-weight: 700; }
 		.code, code {
 			font-family: Monaco,Consolas,monospace;
 			font-size: 10pt;
@@ -43,13 +37,20 @@
 			font-size: 10pt;
 			margin-left: 1em;
 		}
-		.sc1 {
-			color: #008000;
+		.sc1 { color: #008000; }
+		.sc3 { font-weight: bold; color: #FF0000; }
+		@media (prefers-color-scheme: dark) {
+			body { background-color: #000000; color: #ffffff; }
+			a { text-decoration: underline; color: #ffff00; }
+			.code, code { background: #080808; }
+			.code { border: 1px solid #222; border-left: 8px solid #222; }
+			.sc1 { color: #ff7fff; }
+			.sc3 { color: #00ffff; }
 		}
-		.sc3 {
-			font-weight: bold;
-			color: #FF0000;
-		}
+		@media (max-width: 480px) {
+			ul { margin-left: 0px; padding-left: 0px; }
+			.code { padding-left: 5px; }
+		}			
 	</style>
 </head>
 <body>
@@ -210,10 +211,10 @@ Aria2Data     <span class="sc1"># 下载目录 默认下载文件会保存在这
 					<li>使用 <code>--rpc-secret=xxxxxx</code> 选项设置为: <code>http://token:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89f1f1f1f1f1f1c9e1e6fafd">[email&#160;protected]</a>:port/jsonrpc</code></li>
 					<li>使用 <code>--rpc-user=user --rpc-passwd=pwd </code> 选项设置为: <code>http://user:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5d5d2c1e5cdcad6d1">[email&#160;protected]</a>:port/jsonrpc</code></li>
 					<li>以上 <code>JSON-RPC Path</code> 中的 <code>http</code> 可以用 <code>ws</code> 替代, 代表使用 <code>WebSocket 协议</code></li>
-					<li>当使用 <a href="https://aria2c.com" target="_blank">https://aria2c.com</a> 访问时, 需要使用 <code>https</code> 或 <code>wss</code> 协议</li>
+					<!-- <li>当使用 <a href="https://aria2c.com" target="_blank">https://aria2c.com</a> 访问时, 需要使用 <code>https</code> 或 <code>wss</code> 协议</li> -->
 				</ul>
 			</li>
-			<li>安全退出aria2的调用: http://localhost:6800/jsonrpc?method=aria2.shutdown&amp;id=0</li>
+			<li>安全退出aria2的调用: <code>http://user:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89f1f1f1f1f1f1c9e1e6fafd">[email&#160;protected]</a>:port/jsonrpc?method=aria2.shutdown&amp;id=0</code></li>
 		</ul>
 		<b>Tips</b>
 		<ul>

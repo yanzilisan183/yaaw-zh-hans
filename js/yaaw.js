@@ -511,7 +511,7 @@ var YAAW = (function() {
 					var time_text = ["s", "m", "h"];
 					return function(time) {
 						if (time == Infinity) {
-							return "<span style=\"color:#FFFFFF;background-color:#CCCCCC;padding:0px 4px;\">INF</span>";
+							return "<span class=\"time_inf\">INF</span>";
 						} else if (time == 0) {
 							return "0s";
 						}
