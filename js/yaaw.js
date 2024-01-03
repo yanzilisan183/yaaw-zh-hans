@@ -917,6 +917,7 @@ var YAAW = (function() {
 				task.after(YAAW.tpl.info_box({gid: task.attr("data-gid")}));
 				if (task.parents("#stopped-tasks-table").length) {
 					$("#ib-options-a").hide();
+					$("#ib-peers-a").hide();
 				}
 				ARIA2.get_status(task.attr("data-gid"));
 				ARIA2.select_lock(true);

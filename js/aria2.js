@@ -817,7 +817,7 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 					} else {
 						$("#ib-file-save").attr('disabled',false);
 					}
-					if (result.bittorrent) {
+					if (result.bittorrent && "paused,waiting,complete".indexOf($("#task-gid-" + gid).attr("data-status")) < 0) {
 						$("#ib-peers-a").show();
 					}
 				}
