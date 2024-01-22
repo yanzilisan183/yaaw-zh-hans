@@ -271,7 +271,7 @@
 						</span>
 						<span>{{#_v.format_size}}{{completedLength}}{{/_v.format_size}} / {{#_v.format_size}}{{totalLength}}{{/_v.format_size}}</span>
 						{{#uploadLength}}<span>(已上传 {{#_v.format_size}}{{uploadLength}}{{/_v.format_size}})</span>{{/uploadLength}}
-						{{#eta}}<span>剩余时间: {{#_v.format_time}}{{eta}}{{/_v.format_time}}</span>{{/eta}}
+						{{#eta}}<span>剩余时间：{{#_v.format_time}}{{eta}}{{/_v.format_time}}</span>{{/eta}}
 					</div>
 				</div>
 				<div class="right-area">
@@ -350,16 +350,16 @@
 
 		<script id="ib-status-tpl" type="text/mustache-template">
 			<ul>
-				{{#uris}}<li><strong>下载链接: </strong><a target=_blank href="{{.}}">{{.}}</a>{{/uris}}
-				{{#infoHash}}<li><strong>磁力链接: </strong><a target=_blank href="magnet:?xt=urn:btih:{{infoHash}}">magnet:?xt=urn:btih:{{infoHash}}</a></li>{{/infoHash}}
-				<li><strong>任务大小: </strong>{{#_v.format_size}}{{totalLength}}{{/_v.format_size}} ({{#_v.format_size}}{{pieceLength}}{{/_v.format_size}} × {{numPieces}})</li>
-				<li><strong>任务状态: </strong>{{#_v.status_text}}{{status}}{{/_v.status_text}}{{#_v.error_msg}}{{errorCode}}{{/_v.error_msg}}</li>
-				<li><strong>保存路径: </strong>{{dir}}</li>
+				{{#uris}}<li><strong>下载链接：</strong><a target=_blank href="{{.}}">{{.}}</a>{{/uris}}
+				{{#infoHash}}<li><strong>磁力链接：</strong><a target=_blank href="magnet:?xt=urn:btih:{{infoHash}}">magnet:?xt=urn:btih:{{infoHash}}</a></li>{{/infoHash}}
+				<li><strong>任务大小：</strong>{{#_v.format_size}}{{totalLength}}{{/_v.format_size}} ({{#_v.format_size}}{{pieceLength}}{{/_v.format_size}} × {{numPieces}})</li>
+				<li><strong>任务状态：</strong>{{#_v.status_text}}{{status}}{{/_v.status_text}}{{#_v.error_msg}}{{errorCode}}{{/_v.error_msg}}</li>
+				<li><strong>保存路径：</strong>{{dir}}</li>
 				{{#bittorrent}}
-					{{#creationDate}}<li><strong>发布时间: </strong>{{#_v.format_date}}{{creationDate}}{{/_v.format_date}}</li>{{/creationDate}}
-					{{#comment}}<li><strong>种子注释: </strong>{{comment}}</li>{{/comment}}
+					{{#creationDate}}<li><strong>发布时间：</strong>{{#_v.format_date}}{{creationDate}}{{/_v.format_date}}</li>{{/creationDate}}
+					{{#comment}}<li><strong>种子注释：</strong>{{comment}}</li>{{/comment}}
 				{{/bittorrent}}
-				<li class="bitfield"><strong>文件区块: </strong>{{#_v.bitfield}}{{bitfield}}{{/_v.bitfield}}</li>
+				<li class="bitfield"><strong>文件区块：</strong>{{#_v.bitfield}}{{bitfield}}{{/_v.bitfield}}</li>
 			</ul>
 		</script>
 
@@ -374,19 +374,19 @@
 		<script id="ib-options-tpl" type="text/mustache-template">
 			<form id="ib-options-form" class="form-horizontal" onsubmit="false">
 			<ul>
-				<li><span>下载限速:</span><input name="max-download-limit" class="active-allowed" value="{{max-download-limit}}" /></li>
-				<li><span>上传限速:</span><input name="max-upload-limit" class="active-allowed" value="{{max-upload-limit}}" /></li>
-				<li><span>分块数量:</span><input name="split" value="{{split}}" /></li>
-				<li><span>分块大小:</span><input name="min-split-size" value="{{min-split-size}}" /></li>
-				<li><span>最大连接数:</span><input name="max-connection-per-server" value="{{max-connection-per-server}}" /></li>
-				<li id="ib-options-btn"><div><button id="ib-options-save" class="btn btn-primary">保存</button></div></li>
+				<li><span>下载限速：</span><input name="max-download-limit" class="active-allowed" value="{{max-download-limit}}" /></li>
+				<li><span>上传限速：</span><input name="max-upload-limit" class="active-allowed" value="{{max-upload-limit}}" /></li>
+				<li><span>分块数量：</span><input name="split" value="{{split}}" /></li>
+				<li><span>分块大小：</span><input name="min-split-size" value="{{min-split-size}}" /></li>
+				<li><span>最大连接数：</span><input name="max-connection-per-server" value="{{max-connection-per-server}}" /></li>
+				<li id="ib-options-btn"><span>&nbsp;</span><button id="ib-options-save" class="btn btn-primary">保存</button></div></li>
 			</form>
 		</script>
 
 		<script id="ib-peers-tpl" type="text/mustache-template">
 			{{#.}}
 			<tr>
-				<td>{{ip}}:{{port}}</td>
+				<td>{{ip}}<wbr>:{{port}}</td>
 				<td>{{#_v.format_peerid}}{{peerId}}{{/_v.format_peerid}}</td>
 				<td>{{#_v.bitfield_to_percent}}{{bitfield}}{{/_v.bitfield_to_percent}}%</td>
 				<td>{{#_v.format_size}}{{downloadSpeed}}{{/_v.format_size}}/s</td>

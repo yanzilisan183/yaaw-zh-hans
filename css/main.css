@@ -275,6 +275,12 @@
     #other-tasks .right-area .pull-right .progress {
         margin-left: 110px;
     }
+    .tabs-left>.nav-tabs {
+    	margin-right: 10px!important;
+    }
+    .tabs-left>.nav-tabs>li>a,.tabs-right>.nav-tabs>li>a{
+        min-width: 28px!important;
+    }
 }
 @media (min-width: 551px) and (max-width: 980px) {
     #active-tasks .left-area {
@@ -415,12 +421,6 @@
 #ib-peers .ip_port {
     display: inline-block;
     width: 250px;
-}
-#ib-options-btn div {
-    width: 303px;
-}
-#ib-options-save {
-    float: right;
 }
 
 /* task-contextmenu */
@@ -617,6 +617,37 @@ td, th {
     padding-right: 4px;
 }
 
+@media (max-width: 480px) {
+    .tabs-left>.nav-tabs {
+    	margin-right: 10px!important;
+    }
+    .tabs-left>.nav-tabs>li>a,.tabs-right>.nav-tabs>li>a{
+        min-width: 28px!important;
+    }
+    #ib-status>ul>li>a {
+        word-break: break-all;
+    }
+    #ib-options input {
+        width: 120px!important;
+    }
+    #ib-peers td, #ib-peers th {
+        max-width: 98px;
+        min-width: 24px;
+        padding: 0 3px 0 0;
+    }
+    #ib-files li {
+        white-space: normal;
+    }
+    #ib-files li>SPAN.ib-file-title {
+        word-break: break-all;
+        white-space: normal;
+    }
+    #ib-files li>SPAN.ib-file-size {
+        font-weight: bold;
+        margin-left: 0px;
+        display: block;
+    }
+}
 
 /* dark mode patch by san */
 @media (prefers-color-scheme: dark) {
