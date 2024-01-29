@@ -75,7 +75,7 @@
 
 				<div class="pull-left" id="not-selected-grp">
 					<div class="pull-left btn-group">
-						<a class="btn" id="add-task-btn" data-toggle="modal" href="#add-task-modal" title="添加任务" onclick="javascript:document.getElementById('add-task-option').style.maxHeight='130px';document.getElementById('expand-task-option').style.display='block';">
+						<a class="btn" id="add-task-btn" data-toggle="modal" href="#add-task-modal" title="添加任务">
 							<i class="icon-plus"></i> 添加
 						</a>
 					</div>
@@ -337,7 +337,7 @@
 						<div class="tab-pane active" id="ib-status"> </div>
 						<div class="tab-pane" id="ib-files">
 							<div id="ib-file-btn">
-								<button id="ib-file-save" class="btn btn-primary" title="任务暂停时才可以保存修改">保存</button>
+								<button id="ib-file-save" class="btn btn-primary" title="任务暂停时才可以保存修改">保存</button>&emsp;*&nbsp;仅暂停的任务可以修改
 							</div>
 							<div class="file-list"></div>
 						</div>
@@ -372,14 +372,14 @@
 		</script>
 
 		<script id="ib-options-tpl" type="text/mustache-template">
-			<form id="ib-options-form" class="form-horizontal" onsubmit="false">
+			<form id="ib-options-form" class="form-horizontal" onsubmit="return false;">
 			<ul>
 				<li><span>下载限速：</span><input name="max-download-limit" class="active-allowed" value="{{max-download-limit}}" /></li>
 				<li><span>上传限速：</span><input name="max-upload-limit" class="active-allowed" value="{{max-upload-limit}}" /></li>
 				<li><span>分块数量：</span><input name="split" value="{{split}}" /></li>
 				<li><span>分块大小：</span><input name="min-split-size" value="{{min-split-size}}" /></li>
 				<li><span>最大连接数：</span><input name="max-connection-per-server" value="{{max-connection-per-server}}" /></li>
-				<li id="ib-options-btn"><span>&nbsp;</span><button id="ib-options-save" class="btn btn-primary">保存</button></div></li>
+				<li id="ib-options-btn"><span>&nbsp;</span>*&nbsp;部分选项暂停可修改<br /><button id="ib-options-save" class="btn btn-primary">保存</button></li>
 			</form>
 		</script>
 
@@ -405,7 +405,7 @@
 
 		<script id="add-task-option-tpl" type="text/mustache-template">
 			<hr />
-			<form id="add-task-option" class="form-horizontal" style="max-height:130px; overflow-y:hidden;" onsubmit="$('#add-task-uri').submit();return false">
+			<form id="add-task-option" class="form-horizontal" style="max-height:130px; overflow-y:hidden;" onsubmit="$('#add-task-uri').submit();return false;">
 				<input type="submit" style="position:fixed;top:0;visibility:hidden"/>
 				<div class="control-group">
 					<label class="control-label" for="ati-out">文件名</label>
@@ -416,9 +416,12 @@
 				<div class="control-group">
 					<label class="control-label" for="ati-dir">保存位置</label>
 					<div class="controls">
-						<input id="ati-dir" class="input-xlarge" name="dir" list="ati-dir-datalist" />
-						<datalist id="ati-dir-datalist"></datalist>
+					  <div class="btn-group position-fix">
+							<input id="ati-dir" class="input-xlarge" name="dir" /><a id="ati-dir-dropdown" class="add-on btn dropdown-btn-fix dropdown-toggle" data-toggle="dropdown" href="javascript:;" disabled><span class="caret"></span></a>
+							<ul id="dir-dropdown-menu" class="dropdown-menu">
+						</div>
 					</div>
+					</ul>
 				</div>
 				<div class="clearfix"></div>
 				<div class="control-group half">
@@ -477,7 +480,7 @@
 
 		<script id="aria2-global-setting-tpl" type="text/mustache-template">
 			<hr />
-			<form id="aria2-gs-form" class="form-horizontal" onsubmit="false">
+			<form id="aria2-gs-form" class="form-horizontal" onsubmit="return false;">
 				<div class="control-group half">
 					<label class="control-label" for="gsi-dl">全局下载限速</label>
 					<div class="controls">

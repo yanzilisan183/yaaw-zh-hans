@@ -343,8 +343,6 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 		restart_task: function(gids) {
 			if (!$.isArray(gids)) gids = [gids];
 			$.each(gids, function(n, gid) {
-				if (!$.isArray(gids))
-					gids = [gids];
 				var result = $("#task-gid-"+gid).data("raw");
 				var uris = [];
 				$.each(result.files, function(n, e) {
@@ -363,8 +361,7 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 					ARIA2.request("getOption", [gid], function(result) {
 						var options = result.result;
 						ARIA2.madd_task(uris, options);
-						//delete old info(mostly failure).
-						ARIA2.remove_result(gid);
+						ARIA2.remove_result(gid);	//delete old info(mostly failure).
 					});
 				}
 			});
@@ -640,7 +637,7 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 				}
 			);
 		},
-
+/* 		# 错误接口，在aria2c的手册中并没有change_options接口，仅有change_option接口，在后面定义
 		change_options: function(gid, options) {
 			ARIA2.request("changeOption", [gid, options],
 				function(result) {
@@ -649,7 +646,7 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 				}
 			);
 		},
-
+*/
 		get_peers: function(gid) {
 			ARIA2.request("getPeers", [gid],
 				function(result) {
@@ -677,7 +674,7 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 				function(result) {
 					// console.debug(result);
 					ARIA2.refresh();
-					main_alert("alert-info", "取消暂停所有任务", 2000);
+					main_alert("alert-info", "所有被暂停的任务恢复下载(或进入等待队列)", 2000);
 				}
 			);
 		},
@@ -687,7 +684,7 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 				function(result) {
 					// console.debug(result);
 					ARIA2.refresh();
-					main_alert("alert-info", "移除所有已完成/错误/已删除下载任务.", 2000);
+					main_alert("alert-info", "移除所有已完成/错误/已删除的下载任务.", 2000);
 				}
 			);
 		},
@@ -771,40 +768,28 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 			);
 		},
 
-		shutdown: function() {
-			ARIA2.request("saveSession", [],
-				function(result) {
-					if (!result.result) {
-						main_alert("alert-error", "<strong>错误: </strong>RPC 通信错误.", 5000);
-						return;
-					}
-				}
-			);
-			if(window.confirm("确定要退出远端 Aria2 RPC 守护进程吗?")){
-				ARIA2.request("shutdown", [],
-					function(result) {
-						if (!result.result) {
-							main_alert("alert-error", "<strong>错误: </strong>RPC 通信错误.", 5000);
-						} else {
-							main_alert("alert-success", "即将关闭", 5000);
-						}
-					}
-				);
-			}
-		},
-
 		get_status: function(gid) {
 			ARIA2.request("tellStatus", [gid],
 				function(result) {
 					if (!result.result) {
 						main_alert("alert-error", "<strong>错误: </strong>RPC 通信错误.", 5000);
 					}
+					
 					result = result.result;
+					result.uris = [];
 					for (var i=0; i<result.files.length; i++) {
 						var file = result.files[i];
 						file.title = file.path.replace(new RegExp("^"+result.dir.replace(/\\/g, "[\\/]")+"/?"), "");
 						file.selected = file.selected == "true" ? true : false;
 						file.progress = (file.completedLength * 1.0 / file.length * 100).toFixed(2);
+						/* if (file.uris && file.uris.length) {
+							for (var j = 0; j < file.uris.length; j++) {
+								var uri = file.uris[j].uri;
+								if (result.uris.indexOf(uri) == -1) {
+									result.uris.push(uri);
+								}
+							}
+						}*/
 					};
 					$("#ib-status").empty().append(YAAW.tpl.ib_status(result));
 					$("#ib-files .file-list").empty().append(YAAW.tpl.files_tree(result.files));
@@ -822,20 +807,6 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 					}
 				}
 			);
-/*
-                        ARIA2.request("getUris", [gid],
-                                function(result) {
-                                        if (!result.result) {
-                                                main_alert("alert-error", "<strong>错误: </strong>RPC 通信错误.", 5000);
-                                        }
-                                        uris = result.result;
-                                        for (var i=0; i<uris.length; i++) {
-                                                alert(uris[i].uri);
-                                        };
-                                }
-                        );
-*/
-
 		},
 
 		change_option: function(gid, options) {
@@ -887,6 +858,28 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 				}
 			}, interval);
 			auto_refresh = true;
+		},
+
+		shutdown: function() {
+			ARIA2.request("saveSession", [],
+				function(result) {
+					if (!result.result) {
+						main_alert("alert-error", "<strong>错误: </strong>RPC 通信错误.", 5000);
+						return;
+					}
+				}
+			);
+			if(window.confirm("确定要退出远端 Aria2 RPC 守护进程吗?")){
+				ARIA2.request("shutdown", [],
+					function(result) {
+						if (!result.result) {
+							main_alert("alert-error", "<strong>错误: </strong>RPC 通信错误.", 5000);
+						} else {
+							main_alert("alert-success", "即将关闭", 5000);
+						}
+					}
+				);
+			}
 		},
 
 		finish_notification: 1,

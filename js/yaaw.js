@@ -24,28 +24,16 @@ var YAAW = (function() {
 	var selected_range_close = null;
 	var on_gid = null;
 	var torrent_file = null, file_type = null;
+	var ait_dir_history = {};
 	return {
 		init: function() {
 			$('#main-control').show();
-
 			this.tpl.init();
 			this.setting.init();
 			this.contextmenu.init();
 			this.event_init();
 			this.aria2_init();
-			// load path
-			var c = document.cookie.split('; '), p = document.getElementById('ati-dir-datalist'), kv, vs, i, j, o;
-			for(i=0;i<c.length;i++){
-				kv = c[i].split('=');
-				if(kv[0] == 'ati-dir-datalist-values') {
-					vs = unescape(kv[1]).split('\n');
-					for(j=0;j<vs.length;j++){
-						o = document.createElement('option');
-						o.value = vs[j];
-						p.appendChild(o);
-					}
-				}
-			}
+			this.ait_dir_history = JSON.parse($.Storage.get("ait-dir-history") || "{}");
 		},
 
 		aria2_init: function() {
@@ -182,10 +170,6 @@ var YAAW = (function() {
 					YAAW.contextmenu.remove();
 				}
 			});
-			$("#shutdown").live("click", function() {
-				ARIA2.shutdown();
-			});
-
 			$("[rel=tooltip]").tooltip({"placement": "bottom"});
 
 			$(".task .select-box").live("click", function(e) {
@@ -284,14 +268,13 @@ var YAAW = (function() {
 			var active_task_allowed_options = ["max-download-limit", "max-upload-limit"];
 			$("#ib-options-save").live("click", function() {
 				var options = {};
-				var gid = $(this).parents(".info-box").attr("data-gid")
+				var gid = $(this).parents(".info-box").attr("data-gid");
 				var status = $("#task-gid-"+gid).attr("data-status");
 				$.each($("#ib-options-form input"), function(n, e) {
-					if (status == "active" && active_task_allowed_options.indexOf(e.name) == -1)
-						return;
+					if (status == "active" && active_task_allowed_options.indexOf(e.name) == -1) return;
 					options[e.name] = e.value;
 				});
-				ARIA2.change_options($(".info-box").attr("data-gid"), options);
+				ARIA2.change_option($(".info-box").attr("data-gid"), options);
 			});
 
 			$("#select-all-btn").click(function() {
@@ -314,6 +297,28 @@ var YAAW = (function() {
 				ARIA2.get_global_option();
 			});
 
+			$("#shutdown").live("click", function() {
+				ARIA2.shutdown();
+			});
+			
+			$("#add-task-btn").live("click", function() {
+				$("#add-task-option").css("maxHeight", "130px");
+				$("#expand-task-option").css("display", "block");
+				YAAW.add_task.clean();
+				// load path
+				$('#dir-dropdown-menu').empty();
+				$.each(YAAW.ait_dir_history, function(key, value) {
+					if (key == YAAW.setting.jsonrpc_path && value && value.length > 0) {
+						$.each(value, function(key, value) {
+							$('#dir-dropdown-menu').append($('<li><a href="javascript:;">' + value + '</a></li>')).on("click", "li>a", function() {
+								$("#ati-dir").val($(this).text());
+							});
+						});
+						$('#ati-dir-dropdown').removeAttr("disabled").dropdown();
+					}
+				});
+			});
+			
 			if (window.FileReader) {
 				var holder = $("#add-task-modal .modal-body").get(0);
 				holder.ondragover = function() {
@@ -669,21 +674,24 @@ var YAAW = (function() {
 					YAAW.setting.save_add_task_option(options_save);
 				}
 				// save path
-				var path = document.getElementById("ati-dir").value.replace(/^\s+|\s+$/gi,'');
-				var os = document.getElementById("ati-dir-datalist").getElementsByTagName("option");
-				for (var i=0,has=false,vs='';i<os.length;i++){
-					vs += (vs === '' ? '' : '\n') + os[i].value;
-					if(path == os[i].value) has = true;
+				var path = $("#ati-dir").val().replace(/^\s+|[\/\\]?\s*$/gi,'');
+				var save_ait_dir_history = false;
+				if (path) {
+					if (YAAW.ait_dir_history[YAAW.setting.jsonrpc_path]) {
+						save_ait_dir_history = (YAAW.ait_dir_history[YAAW.setting.jsonrpc_path].indexOf(path) == -1);
+					} else {
+						YAAW.ait_dir_history[YAAW.setting.jsonrpc_path] = [];
+						save_ait_dir_history = true;
+					}
+					if (save_ait_dir_history) {
+						$('#dir-dropdown-menu').append($('<li><a href="javascript:;">' + path + '</a></li>')).on("click", "li>a", function() {
+							$("#ati-dir").val($(this).text());
+						});
+						$('#ati-dir-dropdown').removeAttr("disabled").dropdown();
+						YAAW.ait_dir_history[YAAW.setting.jsonrpc_path].push(path);
+						$.Storage.set("ait-dir-history", JSON.stringify(YAAW.ait_dir_history));
+					}
 				}
-				if (!has && path !== '') {
-					vs += (vs === '' ? '' : '\n') + path;
-					var o = document.createElement('option');
-					o.value = path;
-					document.getElementById("ati-dir-datalist").appendChild(o);
-				}
-				var d = new Date();
-				d.setFullYear(d.getFullYear() + 1);
-				document.cookie = 'ati-dir-datalist-values=' + escape(vs) + '; expires=' + d.toGMTString();
 			},
 
 			clean: function() {

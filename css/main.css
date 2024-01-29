@@ -424,7 +424,6 @@
 }
 
 /* task-contextmenu */
-
 #task-contextmenu {
     position: fixed;
     z-index: 99;
@@ -508,11 +507,17 @@
         padding: 0 10px 0 20px;
     }
 }
+/*
 #add-task-option .controls {
     padding-right: 10px;
 }
-#add-task-option .input-xlarge {
-    width: 100%;
+*/
+#ati-out {
+    width: calc(100% - 10px);
+}
+#ati-dir {
+    float: left;
+    width: calc(100% - 35px);
 }
 #add-task-option .half {
     float: left;
@@ -528,9 +533,19 @@
     #add-task-option .control-label {
         float: left!important;
     }
-    #add-task-option .input-xlarge {
+    #ati-out {
         width: 185px;
     }
+    #ati-dir {
+        width: 155px!important;
+    }
+}
+#add-task-option .dropdown-btn-fix {
+    border-color: #ccc!important;
+}
+#add-task-option .position-fix {
+    position: absolute;
+    width: 375px;
 }
 
 /* aria2 global setting */
@@ -624,7 +639,7 @@ td, th {
     .tabs-left>.nav-tabs>li>a,.tabs-right>.nav-tabs>li>a{
         min-width: 28px!important;
     }
-    #ib-status>ul>li>a {
+    #ib-status>ul>li, #ib-status>ul>li>a {
         word-break: break-all;
     }
     #ib-options input {
@@ -698,7 +713,13 @@ td, th {
         background-color: #666;
         color: #000;
     }
-
+    #add-task-option .dropdown-btn-fix {
+        border-color: #333!important;
+    }
+    #add-task-option .position-fix {
+        position: absolute;
+        width: 375px;
+    }
 }
 
 

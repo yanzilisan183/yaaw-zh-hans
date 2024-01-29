@@ -19,6 +19,8 @@ No HTTP server, backend or server-side program. All you need is just a browser.
 
 集成使用说明.
 
+增加保存位置的历史记录下拉选择.
+
 <br />
 
 Usage
