@@ -348,6 +348,7 @@
 }
 #ib-files .file-list {
     margin-left: -25px;
+    padding-bottom: 10px;
 }
 #ib-files ul,
 #ib-options ul {
@@ -368,6 +369,14 @@
 #ib-file-btn,
 #ib-options-btn {
     margin: 0 0 5px 5px;
+}
+#ib-file-btn {
+    position: sticky;
+    top: 0;
+    height: 30px;
+    z-index: 1000;
+    background-color: #fff;
+    opacity: 0.95;
 }
 @media (max-width: 980px) {
     #ib-file-btn, #ib-options-btn {
@@ -689,6 +698,9 @@ td, th {
         border-color: #999;
     }
     .info-open {
+        background-color: #060606;
+    }
+    #ib-file-btn {
         background-color: #060606;
     }
     #ib-files li {
