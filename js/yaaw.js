@@ -318,7 +318,17 @@ var YAAW = (function() {
 					}
 				});
 			});
-			
+
+			$("#global-version").live("click", function() {
+				if($("#active-tasks").css("opacity") !== "0.1") {
+					$("#active-tasks").css("opacity", "0.1");
+					$("#other-tasks").css("opacity", "0.1");
+				}else{
+					$("#active-tasks").css("opacity", "1");
+					$("#other-tasks").css("opacity", "1");
+				}
+			});
+
 			if (window.FileReader) {
 				var holder = $("#add-task-modal .modal-body").get(0);
 				holder.ondragover = function() {

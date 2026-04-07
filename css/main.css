@@ -65,6 +65,7 @@
 }
 #global-version {
     text-align: right;
+    cursor: pointer;
 }
 
 /* main-control */
