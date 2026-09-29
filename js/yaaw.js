@@ -1,3 +1,4 @@
+// vim: set ts=4 noexpandtab:
 /*
  * Copyright (C) 2015 Binux <roy@binux.me>
  *
@@ -173,7 +174,7 @@ var YAAW = (function() {
 			$("[rel=tooltip]").tooltip({"placement": "bottom"});
 
 			$(".task .select-box").live("click", function(e) {
-                                if(this.disabled) return;
+				if(this.disabled) return;
 				if (!e.shiftKey) {
 					YAAW.tasks.toggle($(this).parents(".task"));
 					selected_range_start = $(this).parents(".task").hasClass("selected") ? $(this).parents(".task")[0] : null;
@@ -222,11 +223,24 @@ var YAAW = (function() {
 			});
 
 			$("#ib-files .ib-file-title, #ib-files .select-box").live("click", function() {
-                                if($(this).parent().find("[disabled='disabled']").length>0) return;
+				if($(this).parent().find("[disabled='disabled']").length>0) return;
 				if ($(this).parent().find(".select-box:first").hasClass("icon-ok")) {
 					$(this).parent().find(".select-box").removeClass("icon-ok");
 				} else {
 					$(this).parent().find(".select-box").addClass("icon-ok");
+				}
+				// 新增：点击文件或文件夹项后，向上联动所有祖先文件夹的选中状态（不改变展开/折叠）
+				var $li = $(this).parent();
+				var $parentFolder = $li.closest('ul').parent('li');
+				while ($parentFolder.length) {
+					var hasSelected = $parentFolder.find('.select-box[data-index].icon-ok').length > 0;
+					var $folderSelectBox = $parentFolder.children('.select-box').first();
+					if (hasSelected) {
+						$folderSelectBox.addClass('icon-ok');
+					} else {
+						$folderSelectBox.removeClass('icon-ok');
+					}
+					$parentFolder = $parentFolder.closest('ul').parent('li');
 				}
 			});
 
@@ -236,9 +250,9 @@ var YAAW = (function() {
 					$(this).addClass("ib-file-folder-close");
 					$(this).next().next().css({"display":"none"});
 				} else {
-                                        $(this).removeClass("ib-file-folder-close");
-                                        $(this).addClass("ib-file-folder-open");
-                                        $(this).next().next().css({"display":"block"});
+					$(this).removeClass("ib-file-folder-close");
+					$(this).addClass("ib-file-folder-open");
+					$(this).next().next().css({"display":"block"});
 				}
 			});
 
@@ -396,19 +410,29 @@ var YAAW = (function() {
 					f['_file'] = files[i];
 				}
 
-				function render(f) {
-					var content = '<ul>';
-
+				function has_selected(node) {
+					if (node['_file'] !== undefined) {
+						return !!node['_file'].selected;
+					}
+					for (var k in node) {
+						if (k === '_file') continue;
+						if (has_selected(node[k])) return true;
+					}
+					return false;
+				}
+				
+				function render(f, hidden) {
+					var content = '<ul' + (hidden ? ' style="display:none;"' : '') + '>';
 					for (var k in f) {
 						if (f[k]['_file'] !== undefined) {
 							continue;
 						}
-
+						var selected = has_selected(f[k]);
 						content += '<li>';
-						content += '<i class="select-box icon-ok"></i>';
-						content += '<span class="ib-file-folder ib-file-folder-open"></span>';
+						content += '<i class="select-box' + (selected ? ' icon-ok' : '') + '"></i>';
+						content += '<span class="ib-file-folder ib-file-folder-' + (selected ? 'open' : 'close') + '"></span>';
 						content += '<span class="ib-file-title">'+$('<div>').text(k).html()+'</span>';
-						content += render(f[k]);
+						content += render(f[k], !selected);
 						content += '</li>';
 					}
 

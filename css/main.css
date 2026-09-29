@@ -18,11 +18,6 @@
  *
  */
 
-.select-box {
-    cursor: pointer;
-    user-select: none;
-    -moz-user-select: none;
-}
 .btn-inline {
     /* fix for MAC/chrome */
     display: inline !important;
@@ -84,8 +79,13 @@
     width: 14px;
     height: 14px;
     line-height: 14px;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
 }
-
+.select-box[disabled] {
+    background-color:#CCCCCC;
+}
 #do-all-btn {
     position: relative;
     margin-left: 10px;
@@ -684,6 +684,9 @@ td, th {
     .select-box {
         border: 1px solid #393939;
         border: 1px solid rgba(100, 100, 100, .57);
+    }
+    .select-box[disabled] {
+        background-color: #444444;
     }
     .task.selected {
         background-color: #060606;

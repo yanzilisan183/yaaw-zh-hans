@@ -1,3 +1,4 @@
+// vim: set ts=4 noexpandtab:
 /* 
  * Copyright (C) 2015 Binux <roy@binux.me>
  *
@@ -797,7 +798,6 @@ if (typeof ARIA2 == "undefined" || !ARIA2) var ARIA2 = (function() {
 						// $("#ib-file-save").hide();
 						$("#ib-file-save").attr('disabled',true);
 						$("#ib-files .file-list i.select-box").attr('disabled',true);
-						$("#ib-files .file-list i.select-box").css("background-color","#CCCCCC");
 
 					} else {
 						$("#ib-file-save").attr('disabled',false);
